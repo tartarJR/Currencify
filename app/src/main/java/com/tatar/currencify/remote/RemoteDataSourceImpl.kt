@@ -1,6 +1,11 @@
 package com.tatar.currencify.remote
 
+import com.tatar.currencify.dagger.app.scope.AppScope
 import com.tatar.currencify.data.RemoteDataSource
+import javax.inject.Inject
 
-class RemoteDataSourceImpl constructor() : RemoteDataSource {
+@AppScope
+class RemoteDataSourceImpl @Inject constructor(
+
+) : RemoteDataSource {
 }
