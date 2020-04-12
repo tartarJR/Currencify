@@ -44,18 +44,19 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-reactivestreams-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
 
-    implementation "com.google.dagger:dagger:$dagger_2_version"
-    kapt "com.google.dagger:dagger-compiler:$dagger_2_version"
+    implementation "com.google.dagger:dagger:$dagger2_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger2_version"
 
-    implementation "io.reactivex.rxjava3:rxjava:$rx_java_version"
-    implementation "io.reactivex.rxjava3:rxkotlin:$rx_kotlin_version"
-    implementation "io.reactivex.rxjava3:rxandroid:$rx_android_version"
+    implementation "io.reactivex.rxjava3:rxjava:$rxjava3_version"
+    implementation "io.reactivex.rxjava3:rxkotlin:$rxjava3_version"
+    implementation "io.reactivex.rxjava3:rxandroid:$rxjava3_version"
 
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_2_version"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_2_version"
-    implementation "com.squareup.retrofit2:converter-moshi:$retrofit_2_version"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit2_version"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofit2_version"
+    implementation "com.github.akarnokd:rxjava3-retrofit-adapter:$rxjava3_version"
 
     implementation "com.squareup.moshi:moshi:$moshi_version"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshi_version"
 
     testImplementation "junit:junit:$junit_version"
     testImplementation "androidx.arch.core:core-testing:$arch_core_version"

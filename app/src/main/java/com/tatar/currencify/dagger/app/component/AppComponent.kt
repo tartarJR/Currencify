@@ -5,6 +5,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.tatar.currencify.dagger.app.scope.AppScope
 import com.tatar.currencify.data.dagger.DataModule
 import com.tatar.currencify.presentation.dagger.ViewModelModule
+import com.tatar.currencify.remote.dagger.ApiModule
+import com.tatar.currencify.remote.dagger.MoshiModule
+import com.tatar.currencify.remote.dagger.NetworkModule
 import com.tatar.currencify.remote.dagger.RemoteModule
 import dagger.BindsInstance
 import dagger.Component
@@ -14,7 +17,10 @@ import dagger.Component
     modules = [
         ViewModelModule::class,
         DataModule::class,
-        RemoteModule::class
+        RemoteModule::class,
+        ApiModule::class,
+        NetworkModule::class,
+        MoshiModule::class
     ]
 )
 interface AppComponent {
