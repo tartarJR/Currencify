@@ -1,4 +1,4 @@
-package com.tatar.currencify.dagger.rates.scope
+package com.tatar.currencify.dagger.currency.scope
 
 import javax.inject.Scope
 

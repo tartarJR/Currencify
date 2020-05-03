@@ -2,7 +2,7 @@ package com.tatar.currencify.presentation.dagger
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.tatar.currencify.presentation.RatesViewModel
+import com.tatar.currencify.presentation.feature.CurrencyConversionViewModel
 import com.tatar.currencify.presentation.viewmodel.ViewModelFactory
 import dagger.Binds
 import dagger.MapKey
@@ -18,8 +18,8 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(RatesViewModel::class)
-    internal abstract fun bindRatesViewModel(viewModel: RatesViewModel): ViewModel
+    @ViewModelKey(CurrencyConversionViewModel::class)
+    internal abstract fun bindCurrencyConversionViewModel(viewModel: CurrencyConversionViewModel): ViewModel
 }
 
 @Target(

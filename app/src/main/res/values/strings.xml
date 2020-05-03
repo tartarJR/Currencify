@@ -6,4 +6,5 @@
     <string name="error_tv_txt">Please check your internet connection and try again later</string>
     <string name="try_again_btn_txt">Try Again</string>
     <string name="responder_currency_msg">Please tap on a currency from below to change the base currency or use the input box for currency transformations.</string>
+    <string name="responder_currency_amount_et_hint_txt">0.0</string>
 </resources>

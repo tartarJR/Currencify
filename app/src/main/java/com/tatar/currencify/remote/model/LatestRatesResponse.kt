@@ -9,7 +9,7 @@ import com.tatar.currencify.data.mapper.DataMappable
 @JsonClass(generateAdapter = true)
 data class LatestRatesResponse(
     @Json(name = "baseCurrency") val baseCurrency: String,
-    @Json(name = "rates") val rates: Map<String, Double>
+    @Json(name = "rates") val ratesByCurrency: Map<String, Double>
 ) : DataMappable<LatestRatesData> {
     override fun asData(): LatestRatesData {
         return LatestRatesData(
@@ -19,7 +19,7 @@ data class LatestRatesResponse(
     }
 
     private fun mapToRatesDataList(): List<RateData> {
-        return rates.entries.map { rateEntry ->
+        return ratesByCurrency.entries.map { rateEntry ->
             RateData(
                 rateEntry.key,
                 rateEntry.value

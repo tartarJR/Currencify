@@ -16,8 +16,6 @@
     <TextView
         android:id="@+id/currency_abb_tv"
         style="@style/CurrencyAbbTvStyle"
-        app:layout_constraintEnd_toStartOf="@+id/currency_amount_et"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/currency_iv"
         app:layout_constraintTop_toTopOf="@+id/currency_iv"
         tools:text="EUR" />
@@ -26,17 +24,18 @@
         android:id="@+id/currency_name_tv"
         style="@style/CurrencyNameTvStyle"
         app:layout_constraintBottom_toBottomOf="@+id/currency_iv"
-        app:layout_constraintEnd_toStartOf="@+id/currency_amount_et"
         app:layout_constraintStart_toEndOf="@+id/currency_iv"
         tools:text="Euro" />
 
     <EditText
         android:id="@+id/currency_amount_et"
         style="@style/CurrencyEtStyle"
+        android:layout_marginStart="16dp"
         android:enabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/currency_name_tv"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="Autofill,LabelFor,MissingConstraints" />
+        tools:ignore="Autofill,LabelFor" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

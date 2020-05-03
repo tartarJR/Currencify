@@ -5,23 +5,23 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.tatar.currencify.dagger.rates.scope.ActivityScope
-import com.tatar.currencify.databinding.LayoutRatesRowBinding
-import com.tatar.currencify.domain.feature.RateEntity
-import com.tatar.currencify.ui.feature.RatesDiffUtil.Companion.KEY_CURRENCY_CODE
-import com.tatar.currencify.ui.feature.RatesDiffUtil.Companion.KEY_RATE
+import com.tatar.currencify.dagger.currency.scope.ActivityScope
+import com.tatar.currencify.databinding.LayoutConvertedCurrencyRowBinding
+import com.tatar.currencify.presentation.feature.ConvertedCurrency
+import com.tatar.currencify.ui.feature.ConvertedCurrenciesDiffUtil.Companion.KEY_AMOUNT
+import com.tatar.currencify.ui.feature.ConvertedCurrenciesDiffUtil.Companion.KEY_CURRENCY_CODE
 import com.tatar.currencify.ui.util.toCurrencyFlag
 import com.tatar.currencify.ui.util.toCurrencyString
 import javax.inject.Inject
 
 @ActivityScope
-class RatesAdapter @Inject constructor() :
-    RecyclerView.Adapter<RatesAdapter.ViewHolder>() {
+class ConvertedCurrenciesAdapter @Inject constructor(
+) : RecyclerView.Adapter<ConvertedCurrenciesAdapter.ViewHolder>() {
 
-    var rates: List<RateEntity> = emptyList()
+    var convertedCurrencyList: List<ConvertedCurrency> = emptyList()
         set(value) {
             DiffUtil.calculateDiff(
-                RatesDiffUtil(rates, value)
+                ConvertedCurrenciesDiffUtil(convertedCurrencyList, value)
             ).dispatchUpdatesTo(this)
 
             field = value
@@ -31,7 +31,7 @@ class RatesAdapter @Inject constructor() :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val binding = LayoutRatesRowBinding.inflate(layoutInflater, parent, false)
+        val binding = LayoutConvertedCurrencyRowBinding.inflate(layoutInflater, parent, false)
         val viewHolder = ViewHolder(binding)
 
         setItemClickListener(viewHolder)
@@ -39,19 +39,19 @@ class RatesAdapter @Inject constructor() :
         return viewHolder
     }
 
-    private fun setItemClickListener(viewHolder: RatesAdapter.ViewHolder) {
+    private fun setItemClickListener(viewHolder: ConvertedCurrenciesAdapter.ViewHolder) {
         viewHolder.itemView.setOnClickListener {
             val position = viewHolder.adapterPosition
             if (position == -1) return@setOnClickListener
 
-            itemClickListener.onItemClick(rates[position].currencyCode)
+            itemClickListener.onItemClick(convertedCurrencyList[position].currencyCode)
         }
     }
 
-    override fun getItemCount(): Int = rates.size
+    override fun getItemCount(): Int = convertedCurrencyList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(rates[position])
+        holder.bind(convertedCurrencyList[position])
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int, payloads: MutableList<Any>) {
@@ -61,11 +61,11 @@ class RatesAdapter @Inject constructor() :
             with(payloads.first()) {
                 if (this is Bundle) {
                     val currencyCode = getString(KEY_CURRENCY_CODE)
-                    val rate = getDouble(KEY_RATE)
+                    val amount = getString(KEY_AMOUNT)
 
                     with(holder.binding) {
                         if (currencyCode != null) currencyAbbTv.text = currencyCode
-                        if (rate != 0.0) currencyAmountEt.setText(String.format("%.3f", rate))
+                        if (amount != null) currencyAmountEt.setText(amount)
                     }
                 }
             }
@@ -77,38 +77,34 @@ class RatesAdapter @Inject constructor() :
     }
 
     inner class ViewHolder(
-        val binding: LayoutRatesRowBinding
+        val binding: LayoutConvertedCurrencyRowBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(rateEntity: RateEntity) {
+        fun bind(convertedCurrency: ConvertedCurrency) {
             with(binding) {
-                currencyIv.setImageResource(rateEntity.currencyCode.toCurrencyFlag())
-                currencyAbbTv.text = rateEntity.currencyCode
-                currencyNameTv.text = rateEntity.currencyCode.toCurrencyString()
-                currencyAmountEt.setText(String.format("%.3f", rateEntity.rate))
+                currencyIv.setImageResource(convertedCurrency.currencyCode.toCurrencyFlag())
+                currencyAbbTv.text = convertedCurrency.currencyCode
+                currencyNameTv.text = convertedCurrency.currencyCode.toCurrencyString()
+                currencyAmountEt.setText(String.format("%.3f", convertedCurrency.amount))
             }
         }
     }
 }
 
 interface ItemClickListener {
-    fun onItemClick(newBaseCurrency: String)
+    fun onItemClick(baseCurrency: String)
 }
 
-class RatesDiffUtil(
-    private val oldList: List<RateEntity>,
-    private val newList: List<RateEntity>
+class ConvertedCurrenciesDiffUtil(
+    private val oldList: List<ConvertedCurrency>,
+    private val newList: List<ConvertedCurrency>
 ) : DiffUtil.Callback() {
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         return oldList[oldItemPosition].currencyCode == newList[newItemPosition].currencyCode
     }
 
-    override fun getOldListSize(): Int {
-        return oldList.size
-    }
+    override fun getOldListSize(): Int = oldList.size
 
-    override fun getNewListSize(): Int {
-        return newList.size
-    }
+    override fun getNewListSize(): Int = newList.size
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         return oldList[oldItemPosition] == newList[newItemPosition]
@@ -121,8 +117,8 @@ class RatesDiffUtil(
         val bundle = Bundle().apply {
             if (oldItem.currencyCode != newItem.currencyCode)
                 putString(KEY_CURRENCY_CODE, newItem.currencyCode)
-            if (oldItem.rate != newItem.rate)
-                putDouble(KEY_RATE, newItem.rate)
+            if (oldItem.amount != newItem.amount)
+                putString(KEY_AMOUNT, String.format("%.3f", newItem.amount))
         }
 
         return if (bundle.size() == 0)
@@ -132,6 +128,6 @@ class RatesDiffUtil(
 
     companion object {
         const val KEY_CURRENCY_CODE = "KEY_CURRENCY_CODE"
-        const val KEY_RATE = "KEY_RATE"
+        const val KEY_AMOUNT = "KEY_AMOUNT"
     }
 }

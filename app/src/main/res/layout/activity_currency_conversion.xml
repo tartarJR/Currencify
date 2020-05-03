@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.feature.RatesActivity">
+    tools:context=".ui.feature.CurrencyConversionActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/responder_currency_container"
@@ -25,8 +25,6 @@
         <TextView
             android:id="@+id/responder_currency_abb_tv"
             style="@style/CurrencyAbbTvStyle"
-            app:layout_constraintEnd_toStartOf="@+id/responder_currency_amount_et"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/responder_currency_iv"
             app:layout_constraintTop_toTopOf="@+id/responder_currency_iv"
             tools:text="HRK" />
@@ -35,15 +33,17 @@
             android:id="@+id/responder_currency_name_tv"
             style="@style/CurrencyNameTvStyle"
             app:layout_constraintBottom_toBottomOf="@+id/responder_currency_iv"
-            app:layout_constraintEnd_toStartOf="@+id/responder_currency_amount_et"
             app:layout_constraintStart_toEndOf="@+id/responder_currency_iv"
             tools:text="Croatian Kuna" />
 
         <EditText
             android:id="@+id/responder_currency_amount_et"
             style="@style/CurrencyEtStyle"
+            android:layout_marginStart="16dp"
+            android:hint="@string/responder_currency_amount_et_hint_txt"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/responder_currency_name_tv"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="Autofill,LabelFor" />
 
@@ -62,7 +62,7 @@
         app:layout_constraintTop_toBottomOf="@+id/responder_currency_container" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rates_rv"
+        android:id="@+id/currency_conversion_rv"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
@@ -70,7 +70,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/currency_responder_divider"
-        tools:listitem="@layout/layout_rates_row" />
+        tools:listitem="@layout/layout_converted_currency_row" />
 
     <ProgressBar
         android:id="@+id/progress_bar"

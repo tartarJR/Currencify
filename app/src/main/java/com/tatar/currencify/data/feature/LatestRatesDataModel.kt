@@ -6,7 +6,7 @@ import com.tatar.currencify.domain.mapper.DomainMappable
 
 data class LatestRatesData(
     val baseCurrency: String,
-    val ratesData: List<RateData>
+    val rateDataList: List<RateData>
 ) : DomainMappable<LatestRatesEntity> {
     override fun asDomain(): LatestRatesEntity {
         return LatestRatesEntity(
@@ -16,7 +16,7 @@ data class LatestRatesData(
     }
 
     private fun mapToRates(): List<RateEntity> {
-        return ratesData.map { rateData ->
+        return rateDataList.map { rateData ->
             rateData.asDomain()
         }
     }

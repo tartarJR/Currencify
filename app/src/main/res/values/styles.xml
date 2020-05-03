@@ -38,17 +38,19 @@
         <item name="android:layout_marginStart">16dp</item>
         <item name="android:layout_marginEnd">16dp</item>
         <item name="android:textSize">14sp</item>
-        <item name="layout_constraintHorizontal_bias">0.0</item>
     </style>
 
     <style name="CurrencyEtStyle">
         <item name="android:textColor">@color/colorTextDark</item>
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:fontFamily">@font/roboto_medium</item>
         <item name="android:inputType">numberDecimal</item>
-        <item name="android:minWidth">72dp</item>
+        <item name="layout_constraintWidth_max">144dp</item>
         <item name="android:textSize">20sp</item>
+        <item name="android:gravity">end</item>
+        <item name="android:maxLength">13</item>
+        <item name="layout_constraintHorizontal_bias">1.0</item>
     </style>
 
 </resources>
