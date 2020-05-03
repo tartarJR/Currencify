@@ -2,7 +2,7 @@ package com.tatar.currencify.dagger.rates.component
 
 import com.tatar.currencify.dagger.app.component.AppComponent
 import com.tatar.currencify.dagger.rates.scope.ActivityScope
-import com.tatar.currencify.ui.RatesActivity
+import com.tatar.currencify.ui.feature.RatesActivity
 import dagger.Component
 
 @ActivityScope

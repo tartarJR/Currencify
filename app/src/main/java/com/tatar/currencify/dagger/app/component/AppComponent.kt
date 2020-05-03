@@ -2,6 +2,7 @@ package com.tatar.currencify.dagger.app.component
 
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider
+import com.tatar.currencify.dagger.app.module.RxSchedulerModule
 import com.tatar.currencify.dagger.app.scope.AppScope
 import com.tatar.currencify.data.dagger.DataModule
 import com.tatar.currencify.presentation.dagger.ViewModelModule
@@ -20,7 +21,8 @@ import dagger.Component
         RemoteModule::class,
         ApiModule::class,
         NetworkModule::class,
-        MoshiModule::class
+        MoshiModule::class,
+        RxSchedulerModule::class
     ]
 )
 interface AppComponent {
