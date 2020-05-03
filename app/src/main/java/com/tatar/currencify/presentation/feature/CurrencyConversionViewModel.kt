@@ -100,8 +100,10 @@ class CurrencyConversionViewModel @Inject internal constructor(
     }
 
     fun onAmountChange(amountText: CharSequence) {
-        if (amountText.isNotEmpty()) amountSubject.onNext(amountText.toString().toDouble())
-        else amountSubject.onNext(INITIAL_BASE_CURRENCY_AMOUNT)
+        if (amountText.isEmpty() || amountText == ".")
+            amountSubject.onNext(INITIAL_BASE_CURRENCY_AMOUNT)
+        else
+            amountSubject.onNext(amountText.toString().toDouble())
     }
 
     fun onResponderContainerClick() = _responderClickEvent.postValue(Event(Unit))
